@@ -7,12 +7,12 @@ import (
 	"go.uber.org/zap"
 )
 
-// Logger Implement of LoggingLogger
+// Logger Zap logger. Implement of LoggingLogger.
 type Logger struct {
 	logger *zap.Logger
 }
 
-// NewLogger create ZapLogger object
+// NewLogger create Zap logger.
 func NewLogger(logger *zap.Logger) *Logger {
 	return &Logger{
 		logger: logger,
@@ -45,21 +45,18 @@ func buildZapFields(req *http.Request, status, bodyBytesSent int, timestamp time
 // Write logs a message.
 func (logging *Logger) Write(req *http.Request, status, bodyBytesSent int, timestamp time.Time) error {
 	fields := buildZapFields(req, status, bodyBytesSent, timestamp)
+	logger := logging.logger.With(fields...)
 
 	statusText := http.StatusText(status)
 	switch status / 100 {
-	case 1:
-		logging.logger.Info(statusText, fields...)
-	case 2:
-		logging.logger.Info(statusText, fields...)
-	case 3:
-		logging.logger.Info(statusText, fields...)
+	case 1, 2, 3:
+		logger.Info(statusText)
 	case 4:
-		logging.logger.Warn(statusText, fields...)
+		logger.Warn(statusText)
 	case 5:
-		logging.logger.Error(statusText, fields...)
+		logger.Error(statusText)
 	default:
-		logging.logger.Warn("Unknown HTTP status", fields...)
+		logger.Warn("Unknown HTTP status")
 	}
 	return nil
 }
