@@ -2,6 +2,6 @@ package middlewares
 
 import "net/http"
 
-type MiddleWare func(http.Handler) http.Handler
+type Middleware func(http.Handler) http.Handler
 
-type Chain func(middlewares ...MiddleWare) MiddleWare
+type Chain func(middlewares ...Middleware) Middleware

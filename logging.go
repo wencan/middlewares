@@ -56,7 +56,7 @@ func (middleware *loggingMiddleware) ServeHTTP(w http.ResponseWriter, r *http.Re
 }
 
 // LoggingMiddleware Create a HTTP middleware that log request and response
-func LoggingMiddleware(logger LoggingLogger, opts ...LoggingOption) MiddleWare {
+func LoggingMiddleware(logger LoggingLogger, opts ...LoggingOption) Middleware {
 	return func(next http.Handler) http.Handler {
 		middleware := &loggingMiddleware{
 			logger: logger,

@@ -63,7 +63,7 @@ func (middleware *recoveryMiddleware) handleRecovery(w http.ResponseWriter, r *h
 }
 
 // RecoverMiddleware Create a HTTP middleware that recover panic
-func RecoverMiddleware(opts ...RecoveryOption) MiddleWare {
+func RecoverMiddleware(opts ...RecoveryOption) Middleware {
 	return func(next http.Handler) http.Handler {
 		middleware := recoveryMiddleware{
 			next: next,
