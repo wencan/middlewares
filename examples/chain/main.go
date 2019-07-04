@@ -5,7 +5,7 @@ import (
 	"net/http"
 
 	"github.com/wencan/middlewares"
-	middleware_zap "github.com/wencan/middlewares/zap"
+	middleware_zap "github.com/wencan/middlewares/logging/zap"
 	"go.uber.org/zap"
 )
 
