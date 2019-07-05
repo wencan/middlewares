@@ -3,8 +3,10 @@ package middlewares_test
 import (
 	"bytes"
 	"fmt"
+	"log"
 	"net/http"
 	"net/http/httptest"
+	"os"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -17,6 +19,10 @@ func TestRecoveryMiddleware(t *testing.T) {
 	panicHandlerFunc := func(w http.ResponseWriter, r *http.Request) {
 		panic(panicError)
 	}
+
+	// redirect default log output
+	log.SetOutput(&bytes.Buffer{})
+	defer log.SetOutput(os.Stderr)
 
 	req := httptest.NewRequest(http.MethodGet, "/panic", nil)
 	recorder := httptest.NewRecorder()

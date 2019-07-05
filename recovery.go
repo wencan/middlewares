@@ -13,7 +13,7 @@ func defaultRecoveryHandler(w http.ResponseWriter, r *http.Request, recovery int
 	w.WriteHeader(http.StatusInternalServerError)
 
 	log.Println(recovery)
-	debug.PrintStack()
+	log.Println(string(debug.Stack()))
 }
 
 type recoveryOptions struct {

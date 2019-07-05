@@ -1,6 +1,7 @@
 package logrus_test
 
 import (
+	"bytes"
 	"net/http"
 	"net/http/httptest"
 	"testing"
@@ -16,6 +17,7 @@ import (
 
 func TestLoggingLogrus(t *testing.T) {
 	logrusLogger := logrus.New()
+	logrusLogger.SetOutput(&bytes.Buffer{})
 	hook := test.NewLocal(logrusLogger)
 
 	logger := middleware_logrus.NewLogger(logrusLogger)
